@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import GlobalStyle from './styled'
 
 import Header from 'components/header'
+import Main from 'components/main'
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <GlobalStyle />
       <div>
         <Header />
+        <Main />
       </div>
     </StrictMode>
   )

@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         max-height: 100vh;    
         overflow: auto;       
-        background: rgb(238,235,230);
+        background: rgb(${Color.background.primary} / ${Opacity.full});
     }
     
 `

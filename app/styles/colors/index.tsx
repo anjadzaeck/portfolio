@@ -1,4 +1,4 @@
-const accent = '155 135 245'
+const accent = '232 120 88'
 const accent2 = '219 255 2'
 
 const Color = {
@@ -16,8 +16,7 @@ const Color = {
     default: '0 0 0',
     inverted: '255 255 255',
     subtle: '142 135 126',
-    subtle2: '117 118 119',
-    active: accent,
+    accent,
     disabled: '193 193 193',
     link: '37 99 235'
   },
@@ -25,7 +24,7 @@ const Color = {
     default: '221 217 212',
     subtle: '229 231 235',
     inverted: '255 255 255',
-    active: '0 0 0'
+    accent
   },
   icon: {
     default: '255 255 255',

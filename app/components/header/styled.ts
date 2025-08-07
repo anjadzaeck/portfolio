@@ -1,11 +1,12 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Spacing, Color, Opacity } from 'styles'
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  padding: ${Spacing.size100} ${Spacing.size400};
+  justify-content: space-between;
+  align-items: center;
+  padding: ${Spacing.size100} ${Spacing.size500};
   background-color: rgb(247 246 244);
   border-bottom: 1px solid rgb(${Color.border.default} / ${Opacity.full});
 `
@@ -24,4 +25,27 @@ export const Title = styled.h1`
 export const SubTitle = styled.h3`
   color: rgb(${Color.text.subtle} / ${Opacity.full});
   font-weight: lighter;
+`
+
+export const Navigation = styled.nav`
+  display: flex;
+  gap: ${Spacing.size200};
+  font-weight: lighter;
+`
+
+export const NavItem = styled.a<{ $active?: boolean }>`
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: rgb(${Color.text.subtle} / ${Opacity.full});
+  transition: 0.3s all ease-in-out;
+
+  &:hover {
+    color: rgb(${Color.text.accent} / ${Opacity.full});
+  }
+
+  ${({ $active }) =>
+    $active &&
+    css`
+      color: rgb(${Color.text.accent} / ${Opacity.full});
+    `};
 `
