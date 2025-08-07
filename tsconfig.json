@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./app/",
+    "jsx": "react-jsx",
+    "module": "esNext",
+    "outDir": "./dist/",
+    "declaration": false,
+    "noEmit": false,
+    "target": "es2022",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "strict": true,
+    "esModuleInterop": true,
+  },
+  "exclude": [
+    "./node_modules/*",
+    "./dist/*",
+    "**/*.js",
+    "**/*.jsx",
+    "./dist/**/*",
+    "**/*.config.*"
+  ],
+  "include": [
+    "app/**/*",
+  ]
+}
