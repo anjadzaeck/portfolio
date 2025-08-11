@@ -81,7 +81,7 @@ export default {
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].chunk.js',
-    publicPath: '/portfolio',
+    publicPath: '/portfolio/',
     path: path.resolve(__dirname, 'dist'),
     clean: true
   },

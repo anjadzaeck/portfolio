@@ -5,31 +5,31 @@ import 'slick-carousel/slick/slick-theme.css'
 
 // fonts
 // Bold
-import ZurichBoldOTF from 'assets/fonts/ZurichBold.otf'
+import ZurichBoldOTF from './assets/fonts/ZurichBold.otf'
 
 // Bold Italic
-import ZurichBoldItalicOTF from 'assets/fonts/ZurichBoldItalic.otf'
+import ZurichBoldItalicOTF from './assets/fonts/ZurichBoldItalic.otf'
 
 // Regular (BT)
-import ZurichBT_TTF from 'assets/fonts/ZurichBT.ttf'
+import ZurichBT_TTF from './assets/fonts/ZurichBT.ttf'
 
 // Condensed Regular (BT)
-import ZurichCondensedBT_TTF from 'assets/fonts/ZurichCondensedBT.ttf'
+import ZurichCondensedBT_TTF from './assets/fonts/ZurichCondensedBT.ttf'
 
 // Italic (OTF)
-import ZurichItalicOTF from 'assets/fonts/ZurichItalic.otf'
+import ZurichItalicOTF from './assets/fonts/ZurichItalic.otf'
 
 // Italic (BT)
-import ZurichItalicBT_TTF from 'assets/fonts/ZurichItalicBT.ttf'
+import ZurichItalicBT_TTF from './assets/fonts/ZurichItalicBT.ttf'
 
 // Light Italic
-import ZurichLightItalicOTF from 'assets/fonts/ZurichLightItalic.otf'
+import ZurichLightItalicOTF from './assets/fonts/ZurichLightItalic.otf'
 
 // Light Regular
-import ZurichLightRegularOTF from 'assets/fonts/ZurichLightRegular.otf'
+import ZurichLightRegularOTF from './assets/fonts/ZurichLightRegular.otf'
 
 // Regular (non-BT)
-import ZurichRegularOTF from 'assets/fonts/ZurichRegular.otf'
+import ZurichRegularOTF from './assets/fonts/ZurichRegular.otf'
 
 const GlobalStyle = createGlobalStyle`
     * {
