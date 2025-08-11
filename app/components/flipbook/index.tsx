@@ -1,10 +1,10 @@
 import { NavButton, Wrapper } from './styled'
-import { Document, pdfjs } from 'react-pdf'
+import { Document, Page, pdfjs } from 'react-pdf'
 import HTMLFlipBook from 'react-pageflip'
 import { useEffect, useRef, useState } from 'react'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import LazyPDFPage from './lazyPage'
+import { PageContainer } from './lazyPage/styled'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
@@ -70,11 +70,14 @@ const FlipBook = () => {
             autoSize={true}
           >
             {Array.from({ length: numPages }, (_, index) => (
-              <LazyPDFPage
-                key={index}
-                pageNumber={index + 1}
-                width={pageSize.width}
-              />
+              <PageContainer key={index}>
+                <Page
+                  pageNumber={index + 1}
+                  width={pageSize.width}
+                  height={pageSize.height}
+                  renderAnnotationLayer={false}
+                />
+              </PageContainer>
             ))}
           </HTMLFlipBook>
         )}
