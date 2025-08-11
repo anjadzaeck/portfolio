@@ -4,7 +4,7 @@ import { Color, Opacity } from 'styles'
 export const PageWrapper = styled.div`
   background-color: rgb(251, 250, 249);
   width: 100%;
-  max-width: 80rem;
+  max-width: 90rem;
   margin: 2rem auto;
   border-radius: 0.5rem;
   padding: 4rem;

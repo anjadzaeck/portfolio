@@ -12,7 +12,7 @@ const Header = () => {
     <Container id={'header'}>
       <NameWrapper>
         <Title>ANJA DZAECK</Title>
-        <SubTitle>ARCHITECT</SubTitle>
+        <SubTitle>ARCHITEKTUR</SubTitle>
       </NameWrapper>
       <Navigation id={'navigation'}>
         <NavItem $active={true}>About</NavItem>

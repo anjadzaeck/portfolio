@@ -1,6 +1,5 @@
-const accent = '232 120 88'
+const accent = '200 101 53'
 const accent2 = '219 255 2'
-
 const Color = {
   background: {
     default: '255 255 255',
@@ -13,7 +12,7 @@ const Color = {
     neutral: '147 185 222'
   },
   text: {
-    default: '0 0 0',
+    default: '64 64 64',
     inverted: '255 255 255',
     subtle: '142 135 126',
     accent,

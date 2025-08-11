@@ -36,6 +36,20 @@ export default {
         exclude: [/node_modules/, /\.d\.ts$/]
       },
       {
+        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/fonts/[name][ext]' // keeps original name
+        }
+      },
+      {
+        test: /\.pdf$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]'
+        }
+      },
+      {
         test: /\.(jpe?g|png|gif)$/,
         type: 'asset/resource',
         generator: {

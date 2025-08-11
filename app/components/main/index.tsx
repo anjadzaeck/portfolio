@@ -1,5 +1,5 @@
 import { Title, PageWrapper, Container } from './styled'
-import PageFlipper from 'components/pageFlipper'
+import PageFlipper from 'components/flipbook'
 
 const Main = () => {
   return (
