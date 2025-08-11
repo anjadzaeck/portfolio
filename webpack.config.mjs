@@ -18,9 +18,7 @@ const plugins = [
     template: 'public/index.html'
   }),
   new CopyWebpackPlugin({
-    patterns: [
-      { from: 'public', to: '.', globOptions: { ignore: ['**/index.html'] } }
-    ]
+    patterns: [{ from: 'public/style.css', to: 'style.css' }]
   }),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(
