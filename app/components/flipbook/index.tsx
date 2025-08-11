@@ -41,6 +41,7 @@ const FlipBook = () => {
   }
 
   const onDocumentLoadSuccess = ({ numPages }) => {
+    console.info('onDocumentLoadSuccess', numPages)
     setNumPages(numPages)
   }
 
