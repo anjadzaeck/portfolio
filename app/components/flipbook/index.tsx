@@ -12,7 +12,8 @@ const FlipBook = () => {
   const [numPages, setNumPages] = useState<null | number>(null)
   const bookRef = useRef<any>(null) // OR use the correct type if needed
   const [pageSize, setPageSize] = useState({ width: 600, height: 424 })
-  const portfolio = '/assets/PF_short.pdf'
+
+  const portfolio = `${process.env.PUBLIC_URL}/portfolio.pdf`
 
   const updatePageSize = () => {
     const isMobile = window.innerWidth < 768
