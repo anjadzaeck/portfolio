@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import webpack from 'webpack'
 import { readFileSync } from 'fs'
 
 const packageJsonFile = readFileSync('./package.json')
@@ -17,7 +18,17 @@ const plugins = [
     template: 'public/index.html'
   }),
   new CopyWebpackPlugin({
-    patterns: [{ from: 'public/style.css', to: 'style.css' }]
+    patterns: [
+      { from: 'public', to: '.', globOptions: { ignore: ['**/index.html'] } }
+    ]
+  }),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(
+      process.env.NODE_ENV || 'development'
+    ),
+    'process.env.PUBLIC_URL': JSON.stringify(
+      process.env.NODE_ENV === 'production' ? '/portfolio' : ''
+    )
   })
 ]
 
@@ -81,7 +92,7 @@ export default {
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].chunk.js',
-    publicPath: '/portfolio/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
     path: path.resolve(__dirname, 'dist'),
     clean: true
   },
