@@ -29,18 +29,21 @@ export const SubTitle = styled.h3`
 
 export const Navigation = styled.nav`
   display: flex;
-  gap: ${Spacing.size200};
+  gap: ${Spacing.size400};
   font-weight: lighter;
 `
 
 export const NavItem = styled.a<{ $active?: boolean }>`
   cursor: pointer;
   font-size: 1.25rem;
+  font-weight: lighter;
   color: rgb(${Color.text.subtle} / ${Opacity.full});
+  text-decoration: none;
   transition: 0.3s all ease-in-out;
 
   &:hover {
     color: rgb(${Color.text.accent} / ${Opacity.full});
+    text-decoration: underline;
   }
 
   ${({ $active }) =>

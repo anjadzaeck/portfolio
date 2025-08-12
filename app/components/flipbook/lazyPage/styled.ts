@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.div`
-  background: white;
   width: 100%;
   height: fit-content;
   display: flex;

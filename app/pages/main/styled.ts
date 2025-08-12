@@ -3,10 +3,10 @@ import { Color, Opacity } from 'styles'
 
 export const Title = styled.h2`
   letter-spacing: 2px;
-  margin: 0;
   width: fit-content;
   font-weight: lighter;
   font-size: 2rem;
+  margin: 0 0 2rem;
   border-bottom: 1px solid rgb(${Color.border.accent} / ${Opacity.full});
 `
 

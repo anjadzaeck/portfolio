@@ -6,15 +6,15 @@ const Main = () => {
   return (
     <Container>
       <Section id={'about'}>
-        <Title>About</Title>
+        <Title>ÜBER MICH</Title>
         <About />
       </Section>
       <Section id={'portfolio'}>
-        <Title>Portfolio</Title>
+        <Title>PORTFOLIO</Title>
         <PageFlipper />
       </Section>
       <Section id={'contact'}>
-        <Title>Contact</Title>
+        <Title>KONTAKT</Title>
       </Section>
     </Container>
   )

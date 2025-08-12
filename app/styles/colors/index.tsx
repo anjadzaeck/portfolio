@@ -28,12 +28,8 @@ const Color = {
   icon: {
     default: '255 255 255',
     inverted: '0 0 0',
-    subtle: '192 192 192',
-    active: accent,
-    extension: '147 51 234',
-    chatbot: '37 99 235'
-  },
-  success: '5 150 105',
-  warning: '234 88 12'
+    subtle: '243 244 246',
+    active: accent
+  }
 }
 export default Color

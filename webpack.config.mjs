@@ -15,12 +15,12 @@ const __dirname = path.dirname(
 const plugins = [
   new HtmlWebpackPlugin({
     inject: true,
-    template: 'public/index.html'
+    template: 'public/index.html',
+    favicon: 'public/favicon.ico'
   }),
   new CopyWebpackPlugin({
     patterns: [
       { from: 'public/style.css', to: 'style.css' },
-      { from: 'public/favicon.ico', to: '.' },
       { from: 'public/assets', to: 'assets' }
     ]
   }),

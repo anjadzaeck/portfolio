@@ -16,10 +16,10 @@ const Header = () => {
       </NameWrapper>
       <Navigation id={'navigation'}>
         <NavItem href={'#about'} $active={true}>
-          About
+          ÜBER MICH
         </NavItem>
-        <NavItem href={'#portfolio'}>Portfolio</NavItem>
-        <NavItem href={'#contact'}>Contact</NavItem>
+        <NavItem href={'#portfolio'}>PORTFOLIO</NavItem>
+        <NavItem href={'#contact'}>KONTAKT</NavItem>
       </Navigation>
     </Container>
   )
