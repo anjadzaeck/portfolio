@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "webpack serve --no-client-overlay --color --progress",
-    "build": "webpack --color --progress",
+    "build": "NODE_ENV=production webpack --color --progress",
     "format": "tsc --noEmit",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
