@@ -1,10 +1,13 @@
 import { Title, Container, Section } from './styled'
 import PageFlipper from 'components/flipbook'
 import About from './about'
+import useResponsiveness from 'hooks/useResponsiveness'
 
 const Main = () => {
+  const { isMobile } = useResponsiveness()
+
   return (
-    <Container>
+    <Container $mobileView={isMobile}>
       <Section id={'about'}>
         <Title>ÜBER MICH</Title>
         <About />

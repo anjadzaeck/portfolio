@@ -1,16 +1,6 @@
 import styled, { css } from 'styled-components'
 import { Spacing, Color, Opacity } from 'styles'
 
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${Spacing.size100} ${Spacing.size500};
-  background-color: rgb(247 246 244);
-  border-bottom: 1px solid rgb(${Color.border.default} / ${Opacity.full});
-`
-
 export const NameWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -51,4 +41,30 @@ export const NavItem = styled.a<{ $active?: boolean }>`
     css`
       color: rgb(${Color.text.accent} / ${Opacity.full});
     `};
+`
+
+export const Container = styled.div<{ $mobileView: boolean }>`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${Spacing.size100} ${Spacing.size500};
+  background-color: rgb(247 246 244);
+  border-bottom: 1px solid rgb(${Color.border.default} / ${Opacity.full});
+
+  ${({ $mobileView }) =>
+    $mobileView &&
+    css`
+      ${NavItem} {
+        font-size: 0.8rem;
+      }
+
+      ${Title} {
+        font-size: 1rem;
+      }
+
+      ${SubTitle} {
+        display: none;
+      }
+    `}
 `

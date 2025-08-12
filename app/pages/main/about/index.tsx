@@ -15,10 +15,12 @@ import {
 } from './styled'
 
 import Profile from 'assets/about.png'
+import useResponsiveness from 'hooks/useResponsiveness'
 
 const About = () => {
+  const { isMobile } = useResponsiveness()
   return (
-    <Wrapper>
+    <Wrapper $mobileView={isMobile}>
       <LeftColumn>
         <SectionTitle>WERDEGANG</SectionTitle>
 

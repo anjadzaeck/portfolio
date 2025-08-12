@@ -1,11 +1,11 @@
-import { NavButton, SliderWrapper, Wrapper } from './styled'
+import { NavButton, SliderWrapper, Wrapper, PageContainer } from './styled'
 import { Document, Page, pdfjs } from 'react-pdf'
 import HTMLFlipBook from 'react-pageflip'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { PageContainer } from './lazyPage/styled'
 import Loading from './loading'
+import Spinner from 'components/spinner'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
@@ -59,26 +59,22 @@ const FlipBook = () => {
     setCurrentPage(e.data) // react-pageflip event gives current page index
   }
 
-  const debounceTimeout = useRef<number | null>(null)
+  useEffect(() => {
+    bookRef.current?.pageFlip()?.flip(currentPage)
+  }, [currentPage])
 
   const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
     const page = Number(e.target.value)
     setCurrentPage(page)
-
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current)
-    }
-
-    debounceTimeout.current = window.setTimeout(() => {
-      bookRef.current?.pageFlip()?.flip(page)
-    }, 100) // 100ms debounce delay, tweak as needed
   }
 
   return (
     <Wrapper ref={containerRef} style={{ width: '100%', position: 'relative' }}>
-      <NavButton onClick={handlePrev} style={{ left: '0' }}>
-        <ChevronLeft size={30} />
-      </NavButton>
+      {!isMobile && (
+        <NavButton onClick={handlePrev} style={{ left: '0' }}>
+          <ChevronLeft size={30} />
+        </NavButton>
+      )}
 
       <Document
         file={portfolio}
@@ -88,13 +84,9 @@ const FlipBook = () => {
         {numPages !== null && (
           // @ts-ignore
           <HTMLFlipBook
-            minWidth={400}
-            maxWidth={3000}
-            minHeight={400}
-            maxHeight={5000}
             width={pageSize.width}
             height={pageSize.height}
-            size={'stretch'}
+            size={isMobile ? 'fixed' : 'stretch'}
             ref={bookRef}
             maxShadowOpacity={0.5}
             drawShadow={false}
@@ -112,7 +104,11 @@ const FlipBook = () => {
                   height={pageSize.height}
                   renderAnnotationLayer={false}
                   renderTextLayer={false}
-                  loading={<span>its loading</span>}
+                  loading={
+                    <div style={{ width: '100%', height: '100%' }}>
+                      <Spinner />
+                    </div>
+                  }
                 />
               </PageContainer>
             ))}
@@ -120,11 +116,13 @@ const FlipBook = () => {
         )}
       </Document>
 
-      <NavButton onClick={handleNext} style={{ right: '0' }}>
-        <ChevronRight size={30} />
-      </NavButton>
+      {!isMobile && (
+        <NavButton onClick={handleNext} style={{ right: '0' }}>
+          <ChevronRight size={30} />
+        </NavButton>
+      )}
 
-      {numPages && (
+      {!isMobile && numPages && (
         <SliderWrapper>
           {/*{numPages && (*/}
           {/*  <Tooltip*/}
@@ -141,8 +139,6 @@ const FlipBook = () => {
             max={numPages - 1}
             value={currentPage}
             onChange={handleSliderChange}
-            // onMouseUp={handleSliderCommit}
-            // onTouchEnd={handleSliderCommit}
           />
         </SliderWrapper>
       )}

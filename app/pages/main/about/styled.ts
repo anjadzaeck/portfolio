@@ -1,22 +1,5 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Color, Opacity } from 'styles'
-
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 3rem;
-  width: 100%;
-`
-
-export const Container = styled.section`
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
-  position: relative;
-  background: #fff;
-  font-family: Arial, sans-serif;
-`
 
 export const LeftColumn = styled.div`
   width: 50%;
@@ -27,8 +10,30 @@ export const RightColumn = styled.div`
   padding-left: 2rem;
 `
 
+export const Wrapper = styled.div<{ $mobileView: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  width: 100%;
+
+  ${({ $mobileView }) =>
+    $mobileView &&
+    css`
+      flex-direction: column;
+
+      & > div {
+        width: 100%;
+      }
+
+      ${RightColumn} {
+        padding: 0;
+      }
+    `}
+`
+
 export const Image = styled.img`
-  max-width: 50rem;
+  max-width: 35rem;
   width: 100%;
   height: auto;
   border-radius: 8px;
@@ -75,7 +80,6 @@ export const List = styled.ul`
   gap: 0.75rem;
 
   li {
-    margin-bottom: 0.3rem;
     width: fit-content;
     text-wrap: nowrap;
   }
@@ -83,8 +87,8 @@ export const List = styled.ul`
 
 export const Highlight = styled.span`
   color: rgb(${Color.text.accent} / ${Opacity.full});
-  font-weight: bold;
-  width: 50%;
+  font-weight: normal;
+  width: 30%;
   text-align: right;
 `
 
