@@ -72,13 +72,30 @@ export const List = styled.ul`
   padding: 0;
   margin: 0;
   font-size: 0.95rem;
+  gap: 0.75rem;
 
   li {
     margin-bottom: 0.3rem;
+    width: fit-content;
+    text-wrap: nowrap;
   }
 `
 
 export const Highlight = styled.span`
-  color: #e16e3a;
+  color: rgb(${Color.text.accent} / ${Opacity.full});
   font-weight: bold;
+  width: 50%;
+  text-align: right;
+`
+
+export const Section = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  gap: 2.5rem;
+
+  li {
+    text-align: left;
+  }
 `

@@ -10,7 +10,8 @@ import {
   Highlight,
   SubTitle,
   Wrapper,
-  Image
+  Image,
+  Section
 } from './styled'
 
 import Profile from 'assets/about.png'
@@ -88,38 +89,55 @@ const About = () => {
         <Image src={Profile} alt={'anja-dzaeck'} />
         <SubTitle>Fähigkeiten</SubTitle>
         <List>
-          <li>
+          <Section>
             <Highlight>CAD</Highlight>
-          </li>
-          <li>Vectorworks</li>
-          <li>ArchiCAD</li>
-          <li>AutoCAD</li>
-          <li>
+            <div>
+              <li>· Vectorworks</li>
+              <li>· ArchiCAD</li>
+              <li>· AutoCAD</li>
+            </div>
+          </Section>
+          <Section>
             <Highlight>Rendering</Highlight>
-          </li>
-          <li>Lumion</li>
-          <li>
+            <div>
+              <li>· Lumion</li>
+            </div>
+          </Section>
+          <Section>
             <Highlight>AVA</Highlight>
-          </li>
-          <li>Bechmann</li>
-          <li>
+            <div>
+              <li>· Bechmann</li>
+            </div>
+          </Section>
+          <Section>
             <Highlight>Sonstiges</Highlight>
-          </li>
-          <li>Adobe Photoshop</li>
-          <li>Microsoft Office</li>
+            <div>
+              <li>· Adobe Photoshop</li>
+              <li>· Microsoft Office</li>
+            </div>
+          </Section>
         </List>
 
         <SubTitle>Sprachkenntnisse</SubTitle>
         <List>
-          <li>
-            <Highlight>Muttersprache</Highlight> · Deutsch
-          </li>
-          <li>
-            <Highlight>Fließend</Highlight> · Englisch
-          </li>
-          <li>
-            <Highlight>Gute Kenntnisse</Highlight> · Spanisch
-          </li>
+          <Section>
+            <Highlight>Muttersprache</Highlight>
+            <div>
+              <li>· Deutsch</li>
+            </div>
+          </Section>
+          <Section>
+            <Highlight>Fließend</Highlight>
+            <div>
+              <li>· Englisch</li>
+            </div>
+          </Section>
+          <Section>
+            <Highlight>Gute Kenntnisse</Highlight>
+            <div>
+              <li>· Spanisch</li>
+            </div>
+          </Section>
         </List>
 
         <SubTitle>Freizeit</SubTitle>

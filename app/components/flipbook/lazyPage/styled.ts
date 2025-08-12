@@ -4,7 +4,6 @@ export const PageContainer = styled.div`
   background: white;
   width: 100%;
   height: fit-content;
-  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

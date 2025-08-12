@@ -5,70 +5,70 @@ import { useEffect, useRef, useState } from 'react'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { PageContainer } from './lazyPage/styled'
+import Loading from './loading'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
 const FlipBook = () => {
-  const [numPages, setNumPages] = useState<null | number>(null)
-  const bookRef = useRef<any>(null) // OR use the correct type if needed
+  const [numPages, setNumPages] = useState<number | null>(null)
   const [pageSize, setPageSize] = useState({ width: 600, height: 424 })
+  const bookRef = useRef<any>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const portfolio = `${process.env.PUBLIC_URL}/assets/PF_short.pdf`
+  const portfolio = `${process.env.PUBLIC_URL}/assets/portfolio.pdf`
 
   const updatePageSize = () => {
-    const isMobile = window.innerWidth < 768
-    const maxSpreadWidth = isMobile
-      ? window.innerWidth * 0.95
-      : Math.min(window.innerWidth * 0.75, 1000) // narrower max width
+    const containerWidth = containerRef.current?.offsetWidth || 600
+    const mobile = containerWidth < 768
 
-    // One page width
-    const pageWidth = isMobile ? maxSpreadWidth : maxSpreadWidth / 2
-    const pageHeight = pageWidth / 1.414 // A-series landscape ratio
+    // if mobile, 1 page = full width; else 2 pages share container
+    const pageWidth = mobile ? containerWidth : containerWidth / 2
+    const pageHeight = pageWidth / 1.414 // maintain A-series ratio
 
     setPageSize({ width: pageWidth, height: pageHeight })
   }
+
   useEffect(() => {
     updatePageSize()
     window.addEventListener('resize', updatePageSize)
     return () => window.removeEventListener('resize', updatePageSize)
   }, [])
 
-  const handleNext = () => {
-    bookRef.current.pageFlip().flipNext()
-  }
+  const handleNext = () => bookRef.current?.pageFlip()?.flipNext()
+  const handlePrev = () => bookRef.current?.pageFlip()?.flipPrev()
 
-  const handlePrev = () => {
-    bookRef.current.pageFlip().flipPrev()
-  }
-
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    console.info('onDocumentLoadSuccess', numPages)
-    setNumPages(numPages)
-  }
+  const onDocumentLoadSuccess = ({ numPages }) => setNumPages(numPages)
 
   return (
-    <Wrapper>
-      <NavButton onClick={handlePrev} style={{ left: '-2rem' }}>
+    <Wrapper
+      ref={containerRef}
+      style={{ width: '100%', overflow: 'hidden', position: 'relative' }}
+    >
+      <NavButton onClick={handlePrev} style={{ left: '0' }}>
         <ChevronLeft size={30} />
       </NavButton>
+
       <Document
         file={portfolio}
         onLoadSuccess={onDocumentLoadSuccess}
-        loading={<div>Loading PDF...</div>}
+        loading={<Loading />}
       >
-        {numPages !== null && numPages > 0 && (
+        {numPages !== null && (
           // @ts-ignore
           <HTMLFlipBook
+            minWidth={400}
+            maxWidth={3000}
+            minHeight={400}
+            maxHeight={5000}
             width={pageSize.width}
             height={pageSize.height}
-            size="fixed"
+            size={'stretch'}
             ref={bookRef}
-            showCover={true}
-            mobileScrollSupport={true}
             maxShadowOpacity={0.5}
-            drawShadow={true}
+            drawShadow={false}
+            showCover={false}
             useMouseEvents={true}
-            usePortrait={false} // ensures 2-page view
+            usePortrait={false}
             autoSize={true}
           >
             {Array.from({ length: numPages }, (_, index) => (
@@ -85,7 +85,8 @@ const FlipBook = () => {
           </HTMLFlipBook>
         )}
       </Document>
-      <NavButton onClick={handleNext} style={{ right: '-2rem' }}>
+
+      <NavButton onClick={handleNext} style={{ right: '0' }}>
         <ChevronRight size={30} />
       </NavButton>
     </Wrapper>

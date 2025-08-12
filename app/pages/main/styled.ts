@@ -14,11 +14,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
   align-items: center;
   padding: 4rem;
   width: 100%;
-  max-width: 90rem;
 `
 
 export const Section = styled.section`
@@ -26,6 +25,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  min-height: 30rem;
 `
