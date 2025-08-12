@@ -6,7 +6,7 @@ export const Title = styled.h2`
   width: fit-content;
   font-weight: lighter;
   font-size: 2rem;
-  margin: 0 0 2rem;
+  margin: 0 0 1rem;
   border-bottom: 1px solid rgb(${Color.border.accent} / ${Opacity.full});
 `
 
@@ -34,11 +34,6 @@ export const Container = styled.div<{ $mobileView: boolean }>`
     $mobileView &&
     css`
       padding: 2rem;
-
-      ${Title} {
-        font-size: 1.5rem;
-        margin: 0 0 1rem;
-      }
 
       ${Section} {
         min-height: 10rem;

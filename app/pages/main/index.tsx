@@ -2,6 +2,7 @@ import { Title, Container, Section } from './styled'
 import PageFlipper from 'components/flipbook'
 import About from './about'
 import useResponsiveness from 'hooks/useResponsiveness'
+import Contact from './contact'
 
 const Main = () => {
   const { isMobile } = useResponsiveness()
@@ -18,6 +19,7 @@ const Main = () => {
       </Section>
       <Section id={'contact'}>
         <Title>KONTAKT</Title>
+        <Contact />
       </Section>
     </Container>
   )

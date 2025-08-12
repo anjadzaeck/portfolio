@@ -4,7 +4,7 @@ import { Color, Opacity } from 'styles'
 export const SpinnerContainer = styled.div`
   width: 8rem;
   height: 8rem;
-  border: 4px solid rgb(${Color.border.default} / ${Opacity.low});
+  border: 4px solid rgb(${Color.border.default} / ${Opacity.medium});
   border-top: 4px solid rgb(${Color.border.default} / ${Opacity.full});
   border-radius: 50%;
   animation: spin 1s linear infinite;
