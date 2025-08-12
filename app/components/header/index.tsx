@@ -15,9 +15,11 @@ const Header = () => {
         <SubTitle>ARCHITEKTUR</SubTitle>
       </NameWrapper>
       <Navigation id={'navigation'}>
-        <NavItem $active={true}>About</NavItem>
-        <NavItem>Portfolio</NavItem>
-        <NavItem>Contact</NavItem>
+        <NavItem href={'#about'} $active={true}>
+          About
+        </NavItem>
+        <NavItem href={'#portfolio'}>Portfolio</NavItem>
+        <NavItem href={'#contact'}>Contact</NavItem>
       </Navigation>
     </Container>
   )

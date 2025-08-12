@@ -20,6 +20,7 @@ const plugins = [
   new CopyWebpackPlugin({
     patterns: [
       { from: 'public/style.css', to: 'style.css' },
+      { from: 'public/favicon.ico', to: '.' },
       { from: 'public/assets', to: 'assets' }
     ]
   }),

@@ -3,11 +3,9 @@ import { Color, Opacity } from 'styles'
 
 export const Wrapper = styled.div`
   display: flex;
-  gap: 3rem;
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 0 3rem;
 `
 
 export const NavButton = styled.button`

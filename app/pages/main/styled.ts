@@ -1,13 +1,10 @@
 import styled from 'styled-components'
 import { Color, Opacity } from 'styles'
 
-export const PageWrapper = styled.div`
-  width: 100%;
-  max-width: 90rem;
-`
 export const Title = styled.h2`
   letter-spacing: 2px;
   margin: 0;
+  width: fit-content;
   font-weight: lighter;
   font-size: 2rem;
   border-bottom: 1px solid rgb(${Color.border.accent} / ${Opacity.full});
@@ -20,4 +17,15 @@ export const Container = styled.div`
   gap: 2rem;
   align-items: center;
   padding: 4rem;
+  width: 100%;
+  max-width: 90rem;
+`
+
+export const Section = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
 `

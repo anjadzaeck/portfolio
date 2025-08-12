@@ -78,6 +78,7 @@ const FlipBook = () => {
                   width={pageSize.width}
                   height={pageSize.height}
                   renderAnnotationLayer={false}
+                  renderTextLayer={false}
                 />
               </PageContainer>
             ))}
