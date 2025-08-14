@@ -1,72 +1,59 @@
 import { NavButton, SliderWrapper, Wrapper, PageContainer } from './styled'
-import { Document, Page, pdfjs } from 'react-pdf'
 import HTMLFlipBook from 'react-pageflip'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
-
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Loading from './loading'
-import Spinner from 'components/spinner'
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
+import { useEffect, useRef, useState } from 'react'
 
 const FlipBook = () => {
-  const [numPages, setNumPages] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [pageSize, setPageSize] = useState({ width: 600, height: 424 })
   const bookRef = useRef<any>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const portfolio = `${process.env.PUBLIC_URL}/assets/portfolio.pdf`
+  // Array of pre-rendered PNGs in /public/assets/pages/
+  const images = Array.from(
+    { length: 38 },
+    (_, i) => `${process.env.PUBLIC_URL}/assets/pages/page-${String(i + 1)}.png`
+  )
 
   const updatePageSize = () => {
     const containerWidth = containerRef.current?.offsetWidth || 600
     const mobile = containerWidth < 768
     setIsMobile(mobile)
 
-    // if mobile, 1 page = full width; else 2 pages share container
     const pageWidth = mobile ? containerWidth : containerWidth / 2
-    const pageHeight = pageWidth / 1.414 // maintain A-series ratio
+    const pageHeight = pageWidth / 1.414 // Keep A-series ratio
 
-    setPageSize({ width: pageWidth, height: pageHeight })
+    setPageSize({
+      width: Math.round(pageWidth),
+      height: Math.round(pageHeight)
+    })
   }
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        handleNext()
-      } else if (e.key === 'ArrowLeft') {
-        handlePrev()
-      }
-    }
+    window.addEventListener('resize', updatePageSize)
+    updatePageSize()
+    return () => window.removeEventListener('resize', updatePageSize)
+  }, [])
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') handleNext()
+      else if (e.key === 'ArrowLeft') handlePrev()
+    }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  useEffect(() => {
-    updatePageSize()
-    window.addEventListener('resize', updatePageSize)
-    return () => window.removeEventListener('resize', updatePageSize)
-  }, [])
-
   const handleNext = () => bookRef.current?.pageFlip()?.flipNext()
   const handlePrev = () => bookRef.current?.pageFlip()?.flipPrev()
-
-  const onDocumentLoadSuccess = ({ numPages }) => setNumPages(numPages)
-
-  const onFlip = (e) => {
-    setCurrentPage(e.data) // react-pageflip event gives current page index
-  }
+  const onFlip = (e: any) => setCurrentPage(e.data)
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setCurrentPage(Number(e.target.value))
 
   useEffect(() => {
     bookRef.current?.pageFlip()?.flip(currentPage)
   }, [currentPage])
-
-  const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const page = Number(e.target.value)
-    setCurrentPage(page)
-  }
 
   return (
     <Wrapper ref={containerRef} style={{ width: '100%', position: 'relative' }}>
@@ -76,45 +63,37 @@ const FlipBook = () => {
         </NavButton>
       )}
 
-      <Document
-        file={portfolio}
-        onLoadSuccess={onDocumentLoadSuccess}
-        loading={<Loading />}
+      {/* @ts-ignore*/}
+      <HTMLFlipBook
+        width={pageSize.width}
+        height={pageSize.height}
+        size={isMobile ? 'fixed' : 'stretch'}
+        ref={bookRef}
+        maxShadowOpacity={0.5}
+        drawShadow={false}
+        showCover={false}
+        useMouseEvents
+        usePortrait={isMobile}
+        autoSize
+        onFlip={onFlip}
       >
-        {numPages !== null && (
-          // @ts-ignore
-          <HTMLFlipBook
-            width={pageSize.width}
-            height={pageSize.height}
-            size={isMobile ? 'fixed' : 'stretch'}
-            ref={bookRef}
-            maxShadowOpacity={0.5}
-            drawShadow={false}
-            showCover={false}
-            useMouseEvents={true}
-            usePortrait={isMobile}
-            autoSize={true}
-            onFlip={onFlip}
-          >
-            {Array.from({ length: numPages }, (_, index) => (
-              <PageContainer key={index}>
-                <Page
-                  pageNumber={index + 1}
-                  width={pageSize.width}
-                  height={pageSize.height}
-                  renderAnnotationLayer={false}
-                  renderTextLayer={false}
-                  loading={
-                    <div style={{ width: '100%', height: '100%' }}>
-                      <Spinner />
-                    </div>
-                  }
-                />
-              </PageContainer>
-            ))}
-          </HTMLFlipBook>
-        )}
-      </Document>
+        {images.map((src, index) => (
+          <PageContainer key={index}>
+            <img
+              src={src}
+              alt={`Page ${index + 1}`}
+              width={pageSize.width}
+              height={pageSize.height}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+          </PageContainer>
+        ))}
+      </HTMLFlipBook>
 
       {!isMobile && (
         <NavButton onClick={handleNext} style={{ right: '0' }}>
@@ -122,21 +101,12 @@ const FlipBook = () => {
         </NavButton>
       )}
 
-      {!isMobile && numPages && (
+      {!isMobile && (
         <SliderWrapper>
-          {/*{numPages && (*/}
-          {/*  <Tooltip*/}
-          {/*    style={{*/}
-          {/*      left: `calc(${(currentPage / (numPages - 1)) * 100} + 2rem)%`*/}
-          {/*    }}*/}
-          {/*  >*/}
-          {/*    Page {currentPage + 1}*/}
-          {/*  </Tooltip>*/}
-          {/*)}*/}
           <input
-            type={'range'}
+            type="range"
             min={0}
-            max={numPages - 1}
+            max={images.length - 1}
             value={currentPage}
             onChange={handleSliderChange}
           />

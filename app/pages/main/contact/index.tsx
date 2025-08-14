@@ -8,15 +8,15 @@ const Contact = () => {
         <SubTitle>Anja Dzaeck</SubTitle>
       </div>
       <div>
-        <Highlight>ADDRESSE</Highlight>
+        <Highlight>ADRESSE</Highlight>
         <SubTitle>Herrfurthstaße 6A, 12049, Berlin</SubTitle>
       </div>
       <div>
-        <Highlight>NUMMER</Highlight>
+        <Highlight>TELEFON</Highlight>
         <SubTitle>0176 20537326</SubTitle>
       </div>
       <div>
-        <Highlight>E-Mail</Highlight>
+        <Highlight>MAIL</Highlight>
         <SubTitle>anja.dzaeck@outlook.de</SubTitle>
       </div>
     </Wrapper>

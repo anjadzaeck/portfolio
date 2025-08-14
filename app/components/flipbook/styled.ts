@@ -94,4 +94,5 @@ export const PageContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
+  background-color: white;
 `
