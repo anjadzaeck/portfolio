@@ -2,8 +2,6 @@ import { NavButton, SliderWrapper, Wrapper, PageContainer } from './styled'
 import HTMLFlipBook from 'react-pageflip'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
-import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const FlipBook = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -17,15 +15,6 @@ const FlipBook = () => {
     { length: 38 },
     (_, i) => `${process.env.PUBLIC_URL}/assets/pages/page-${String(i + 1)}.png`
   )
-
-  // Preload first few pages (2–3 pages)
-  useEffect(() => {
-    const preloadCount = 3
-    images.slice(0, preloadCount).forEach((src) => {
-      const img = new Image()
-      img.src = src
-    })
-  }, [])
 
   const updatePageSize = () => {
     const containerWidth = containerRef.current?.offsetWidth || 600
@@ -90,26 +79,18 @@ const FlipBook = () => {
       >
         {images.map((src, index) => (
           <PageContainer key={index}>
-            {index < 3 ? (
-              // Preloaded pages → use normal <img>
-              <img
-                src={src}
-                alt={`Page ${index + 1}`}
-                width={pageSize.width}
-                height={pageSize.height}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              // Lazy load the rest
-              <LazyLoadImage
-                src={src}
-                alt={`Page ${index + 1}`}
-                effect="blur"
-                width={pageSize.width}
-                height={pageSize.height}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            )}
+            <img
+              src={src}
+              alt={`Page ${index + 1}`}
+              width={pageSize.width}
+              height={pageSize.height}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
           </PageContainer>
         ))}
       </HTMLFlipBook>

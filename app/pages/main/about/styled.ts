@@ -1,21 +1,22 @@
 import styled, { css } from 'styled-components'
 import { Color, Opacity } from 'styles'
 
-export const LeftColumn = styled.div`
+export const Column = styled.div`
   width: 50%;
-`
-
-export const RightColumn = styled.div`
-  width: 50%;
-  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
 `
 
 export const Wrapper = styled.div<{ $mobileView: boolean }>`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 3rem;
+  align-items: stretch;
+  gap: 4rem;
   width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
 
   ${({ $mobileView }) =>
     $mobileView &&
@@ -25,15 +26,10 @@ export const Wrapper = styled.div<{ $mobileView: boolean }>`
       & > div {
         width: 100%;
       }
-
-      ${RightColumn} {
-        padding: 0;
-      }
     `}
 `
 
 export const Image = styled.img`
-  max-width: 35rem;
   width: 100%;
   height: auto;
   border-radius: 8px;
@@ -43,14 +39,23 @@ export const Image = styled.img`
 export const SectionTitle = styled.h2`
   font-size: 1.4rem;
   letter-spacing: 2px;
-  margin-top: 0;
-  margin-bottom: 1rem;
+  margin: 0;
+`
+
+export const Content = styled.div`
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
 `
 
 export const Entry = styled.div`
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `
-
 export const Date = styled.div`
   color: rgb(${Color.text.accent} / ${Opacity.full});
   font-weight: lighter;
@@ -69,7 +74,7 @@ export const Description = styled.p`
 
 export const SubTitle = styled.h3`
   font-size: 1.1rem;
-  margin-top: 1.5rem;
+  margin: 0;
 `
 
 export const List = styled.ul`
@@ -77,7 +82,10 @@ export const List = styled.ul`
   padding: 0;
   margin: 0;
   font-size: 0.95rem;
-  gap: 0.75rem;
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 
   li {
     width: fit-content;
