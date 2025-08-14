@@ -2,6 +2,8 @@ import { NavButton, SliderWrapper, Wrapper, PageContainer } from './styled'
 import HTMLFlipBook from 'react-pageflip'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const FlipBook = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -79,17 +81,13 @@ const FlipBook = () => {
       >
         {images.map((src, index) => (
           <PageContainer key={index}>
-            <img
+            <LazyLoadImage
               src={src}
               alt={`Page ${index + 1}`}
+              effect={'blur'}
               width={pageSize.width}
               height={pageSize.height}
-              style={{
-                display: 'block',
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover'
-              }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </PageContainer>
         ))}
