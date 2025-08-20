@@ -109,7 +109,7 @@ const FlipBook = () => {
         drawShadow={false}
         showCover={false}
         showPageCorners={false}
-        useMouseEvents={false}
+        useMouseEvents={isMobile}
         usePortrait={isMobile}
         disableFlipByClick={true}
         autoSize
