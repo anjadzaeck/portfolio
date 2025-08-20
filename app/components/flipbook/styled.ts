@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Color, Opacity } from 'styles'
 
 export const Wrapper = styled.div`
@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   position: relative;
   flex-direction: column;
+  overflow-y: hidden;
 
   & > div {
     width: 100%;
@@ -85,6 +86,31 @@ export const Tooltip = styled.div`
   transition: left 0.15s ease;
 `
 
+export const IconWrapper = styled.div<{ $isLeft: boolean }>`
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  cursor: pointer;
+  opacity: 0;
+
+  &:hover {
+    background-color: rgb(${Color.background.inverted} / ${Opacity.veryLow});
+  }
+
+  ${({ $isLeft }) =>
+    $isLeft &&
+    css`
+      left: 0.75rem;
+      right: unset;
+    `}
+`
+
 export const PageContainer = styled.div`
   width: 100%;
   height: fit-content;
@@ -94,5 +120,20 @@ export const PageContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
-  background-color: white;
+
+  &:hover {
+    ${IconWrapper} {
+      opacity: 1;
+    }
+  }
+  & > svg {
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: rgb(
+        ${Color.background.inverted} / ${Opacity.mediumLow}
+      );
+    }
+  }
 `

@@ -1,11 +1,26 @@
-import { NavButton, SliderWrapper, Wrapper, PageContainer } from './styled'
+import {
+  NavButton,
+  SliderWrapper,
+  Wrapper,
+  PageContainer,
+  IconWrapper
+} from './styled'
 import HTMLFlipBook from 'react-pageflip'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react'
+import {
+  ChangeEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
+import ImagePreview from './imagePreview'
+import useKeyPress from 'hooks/useKeyPress'
 
 const FlipBook = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
+  const [previewedImage, setPreviewedImage] = useState<null | string>(null)
   const [pageSize, setPageSize] = useState({ width: 600, height: 424 })
   const bookRef = useRef<any>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -36,24 +51,44 @@ const FlipBook = () => {
     return () => window.removeEventListener('resize', updatePageSize)
   }, [])
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') handleNext()
-      else if (e.key === 'ArrowLeft') handlePrev()
+  const handleNext = () => {
+    if (previewedImage !== null) {
+      setPreviewedImage(null)
     }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+    bookRef.current?.pageFlip()?.flipNext()
+  }
+  const handlePrev = () => {
+    if (previewedImage !== null) {
+      setPreviewedImage(null)
+    }
+    bookRef.current?.pageFlip()?.flipPrev()
+  }
 
-  const handleNext = () => bookRef.current?.pageFlip()?.flipNext()
-  const handlePrev = () => bookRef.current?.pageFlip()?.flipPrev()
-  const onFlip = (e: any) => setCurrentPage(e.data)
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  useKeyPress('ArrowRight', handleNext)
+  useKeyPress('ArrowLeft', handlePrev)
+
+  const onFlip = (e: any) => {
+    setCurrentPage(e.data)
+  }
+
+  const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCurrentPage(Number(e.target.value))
 
   useEffect(() => {
     bookRef.current?.pageFlip()?.flip(currentPage)
   }, [currentPage])
+
+  const handleMaximizeImage =
+    (src: string | null): MouseEventHandler =>
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      setPreviewedImage(src)
+    }
+
+  const handleClosePreview = () => {
+    setPreviewedImage(null)
+  }
 
   return (
     <Wrapper ref={containerRef} style={{ width: '100%', position: 'relative' }}>
@@ -63,6 +98,7 @@ const FlipBook = () => {
         </NavButton>
       )}
 
+      <ImagePreview src={previewedImage} onClose={handleClosePreview} />
       {/* @ts-ignore*/}
       <HTMLFlipBook
         width={pageSize.width}
@@ -72,25 +108,35 @@ const FlipBook = () => {
         maxShadowOpacity={0.5}
         drawShadow={false}
         showCover={false}
-        useMouseEvents
+        showPageCorners={false}
+        useMouseEvents={false}
         usePortrait={isMobile}
+        disableFlipByClick={true}
         autoSize
         onFlip={onFlip}
       >
         {images.map((src, index) => (
           <PageContainer key={index}>
-            <img
-              src={src}
-              alt={`Page ${index + 1}`}
-              width={pageSize.width}
-              height={pageSize.height}
-              style={{
-                display: 'block',
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover'
-              }}
-            />
+            <>
+              <img
+                src={src}
+                alt={`Page ${index + 1}`}
+                width={pageSize.width}
+                height={pageSize.height}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+              <IconWrapper
+                $isLeft={index % 2 === 0}
+                onClick={handleMaximizeImage(src)}
+              >
+                <Maximize2 />
+              </IconWrapper>
+            </>
           </PageContainer>
         ))}
       </HTMLFlipBook>
